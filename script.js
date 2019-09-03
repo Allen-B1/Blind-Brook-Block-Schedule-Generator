@@ -11,6 +11,12 @@ function implementClass() {
         var attributes = classes[i].trim().replace(/\s+/g,' ').split(' ')
         console.log(attributes)
 
+        // Shift it one over
+        if(attributes[3].toUpperCase() == "GYM") {
+            attributes.splice(3, 1);
+            attributes[2] += " GYM";
+        }
+
         // attributes = [days, period, classroom, class_id, name..., section, teacher, date?]
 
         var days = attributes[0].split(",")
