@@ -8,21 +8,21 @@ function implementClass() {
     var textfield = document.getElementById("textfield")
     var classes = textfield.value.split('\n');
     for(i=0; i<classes.length; i++) {
-        classes[i] = classes[i].trim()
-        for(_=0;_<6;_++) {
-            classes[i] = classes[i].replace(' ', '')
-        }
-        classes[i] = classes[i].replace(/\s/g,' ').split(' ')
-        var unnecessaryIndexInArray = [3, 4, 5]
-        for(j=0;j<3;j++) {
-            classes[i].splice(unnecessaryIndexInArray[j], 1)
-        }
-        for(l=0;l<classes[i][0].length;l++) {
-            if(classes[i][0][l] != ",") {
-                var classData = document.getElementById("p" + classes[i][1] + classes[i][0][l])
-                if(classData != undefined) {
-                    classData.innerHTML = classes[i][3] + "<br>" + classes[i][2] + "<br>" + classes[i][4]
-                }
+        var attributes = classes[i].trim().replace(/\s+/g,' ').split(' ')
+        console.log(attributes)
+
+        // attributes = [days, period, classroom, class_id, name..., section, teacher, date?]
+
+        var days = attributes[0].split(",")
+        for(var j=0;j<days.length;j++) {
+            var classElem = document.getElementById("p" + attributes[1] + days[j]);
+            if(classElem) {
+                var className = attributes.slice(4, -3).join(" ");
+                classElem.innerHTML = [
+                    className,
+                    attributes[attributes.length-2], // teacher
+                    attributes[2] // classroom
+                ].join("<br>");
             }
         }
     }
@@ -69,6 +69,7 @@ function implementClass() {
     }
 }
 function checkForErrors() {
+    return false;
     var errorInSchedule = true
     for(i=0;i<document.getElementsByTagName("TD").length;i++) {
         if(!document.getElementsByTagName("TD")[i].innerHTML.includes("Free") && document.getElementsByTagName("TD")[i].innerHTML != "Lunch") {
