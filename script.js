@@ -21,6 +21,12 @@ function implementClass() {
             attributes[2] += " GYM";
         }
 
+        // Teachers might have a space, so fix that
+        if(isNaN(attributes[attributes.length-3])) {
+            attributes[attributes.length-2] = attributes[attributes.length-3] + " " + attributes[attributes.length-2];
+            attributes.splice(attributes.length-3, 1);
+        }
+
         // attributes = [days, period, classroom, class_id, name..., section, teacher, date?]
 
         var days = attributes[0].split(",")
