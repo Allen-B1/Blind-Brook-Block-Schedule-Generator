@@ -9,9 +9,13 @@ function implementClass() {
     var classes = textfield.value.split('\n');
     for(i=0; i<classes.length; i++) {
         var attributes = classes[i].trim().replace(/\s+/g,' ').split(' ')
-        console.log(attributes)
 
-        // Shift it one over
+        // This line is invalid; probably blank
+        if(attributes.length < 8) {
+            continue;
+        }
+
+        // Shift it one over in the case of "GYM"
         if(attributes[3].toUpperCase() == "GYM") {
             attributes.splice(3, 1);
             attributes[2] += " GYM";
